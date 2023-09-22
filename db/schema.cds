@@ -8,10 +8,9 @@ entity DevicetryHeader : cuid, managed {
     to_DevicetryItem     : Composition of many DevicetryItem on to_DevicetryItem.to_DevicetryHeader = $self;
 };
 
-
 entity DevicetryItem : cuid, managed {
     DeviceName : String(40);
-    BillNumber : Integer64; 
+    BillNumber : Integer; 
     Manufacturer : String(40);
     Warranty: Date;
     DevicePrice : Decimal(16,2) @Measures.ISOCurrency: DeviceCurrency_code;

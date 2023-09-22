@@ -1,0 +1,187 @@
+{
+    "_version": "1.49.0",
+    "sap.app": {
+        "id": "ram.devicetry.ui.devicetryapp",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:lrop",
+            "version": "1.11.0",
+            "toolsId": "9ac38cc2-84df-4b10-b97f-f4f96a7b9390"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/odata/v4/travel/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "deviceRegistry-manage": {
+                    "semanticObject": "deviceRegistry",
+                    "action": "manage",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    }
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.118.0",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.fe.templates": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "ram.devicetry.ui.devicetryapp.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "DevicetryHeaderList",
+                    "target": "DevicetryHeaderList"
+                },
+                {
+                    "pattern": "DevicetryHeader({key}):?query:",
+                    "name": "DevicetryHeaderObjectPage",
+                    "target": "DevicetryHeaderObjectPage"
+                },
+                {
+                    "pattern": "DevicetryHeader({key})/to_DevicetryItem({key2}):?query:",
+                    "name": "DevicetryItemObjectPage",
+                    "target": "DevicetryItemObjectPage"
+                }
+            ],
+            "targets": {
+                "DevicetryHeaderList": {
+                    "type": "Component",
+                    "id": "DevicetryHeaderList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "entitySet": "DevicetryHeader",
+                            "variantManagement": "Page",
+                            "navigation": {
+                                "DevicetryHeader": {
+                                    "detail": {
+                                        "route": "DevicetryHeaderObjectPage"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "DevicetryHeaderObjectPage": {
+                    "type": "Component",
+                    "id": "DevicetryHeaderObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "DevicetryHeader",
+                            "navigation": {
+                                "to_DevicetryItem": {
+                                    "detail": {
+                                        "route": "DevicetryItemObjectPage"
+                                    }
+                                }
+                            },
+                            "controlConfiguration": {
+                                "to_DevicetryItem/@com.sap.vocabularies.UI.v1.LineItem#ListofDevices": {
+                                    "tableSettings": {
+                                        "creationMode": {
+                                            "name": "Inline"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "DevicetryItemObjectPage": {
+                    "type": "Component",
+                    "id": "DevicetryItemObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "DevicetryItem"
+                        }
+                    }
+                }
+            }
+        },
+        "extends": {
+            "extensions": {
+                "sap.ui.controllerExtensions": {}
+            }
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    }
+}

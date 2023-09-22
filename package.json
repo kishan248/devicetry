@@ -10,9 +10,20 @@
     "express": "^4"
   },
   "devDependencies": {
-    "@cap-js/sqlite": "^1"
+    "@cap-js/sqlite": "^1",
+    "@sap/ux-specification": "^1.108.14"
   },
   "scripts": {
     "start": "cds-serve"
+  },
+  "sapux": [
+    "app/devicetryapp"
+  ],
+  "cds":{
+    "requires": {
+      "db": {
+        "[development]": { "kind": "sqlite", "impl": "@cap-js/sqlite", "credentials": { "url": "db.sqlite" }, "schema_evolution": "auto"  }
+      }
+    }
   }
 }
