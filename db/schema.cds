@@ -10,13 +10,21 @@ entity DevicetryHeader : cuid, managed {
 
 entity DevicetryItem : cuid, managed {
     DeviceName : String(40);
-    BillNumber : Integer; 
+    BillNumber : String(40); 
+    BillImage : LargeBinary @Core.MediaType: 'image/png';
     Manufacturer : String(40);
     Warranty: Date;
     DevicePrice : Decimal(16,2) @Measures.ISOCurrency: DeviceCurrency_code;
     DeviceCurrency : Currency;
-    to_DevicetryHeader       : Association to DevicetryHeader;
+    Image : LargeBinary @Core.MediaType: 'image/png';
+    to_DevicetryHeader : Association to DevicetryHeader;
+    // to_DevicetryImages : Composition of many DeviceImages on to_DevicetryImages.to_DevicetryItem = $self;
 };
+
+// entity DeviceImages : cuid, managed {
+//     Images : LargeBinary @Core.MediaType: 'image/png';
+//     to_DevicetryItem       : Association to DevicetryItem;
+// };
 
 // Code List
 entity ListType : CodeList {
